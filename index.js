@@ -84,6 +84,14 @@ var cdFour = schedule.scheduleJob(new Date().setHours(12,29,58),function(){ send
 
 var cdFive = schedule.scheduleJob(new Date().setHours(12,29,59),function(){ sendMessageToTheChat("T - 1 Second"); });
 
+var testSchedule = schedule.scheduleJob(new Date().setHours(2,50,0),function(){ 
+	sendMessageToTheChat("Testing 4Head");
+	var newDate = new Date();
+	newDate.setMinutes(newDate.getMinutes() + 1);
+	schedule.scheduleJob(newDate,function(){
+		sendMessageToTheChat("EndingTest 4Head");
+	});
+});
 function login(){
 	getLunchTime();
 	mybot.login("MjE1MTM4MjE0MjYyODY1OTIx.CpTKmw.1OwPygwhbXL8OA9lj7q92pjqu3A");
