@@ -272,7 +272,7 @@ function processDoritoBag(regex, commandString, message){
 }
 
 function processAaron(regex, commandString, message){
-	message.channel.sendTTSMessage(	'I\'m not Aaron EleGiggle');
+	message.channel.sendMessage('I\'m not Aaron EleGiggle');
 }
 
 function processWaterCloset(regex, commandString, message){
