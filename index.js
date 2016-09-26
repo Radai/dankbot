@@ -84,9 +84,6 @@ var cdFour = schedule.scheduleJob(new Date().setHours(12,29,58),function(){ send
 
 var cdFive = schedule.scheduleJob(new Date().setHours(12,29,59),function(){ sendMessageToTheChat("T - 1 Second"); });
 
-var cdFinal = schedule.scheduleJob(new Date().setHours(12,30,0),function(){ sendMessageToTheChat("T - 1 Second"); });
-
-
 function login(){
 	getLunchTime();
 	mybot.login("MjE1MTM4MjE0MjYyODY1OTIx.CpTKmw.1OwPygwhbXL8OA9lj7q92pjqu3A");
