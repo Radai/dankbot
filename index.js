@@ -41,7 +41,8 @@ mybot.on("ready",() =>{
 		//		const stream = ytdl('https://www.youtube.com/watch?v=XAWgeLF9EVQ', {filter : 'audioonly'});
 		//		const dispatcher = connection.playStream(stream, streamOptions).catch(console.log("FUUUUUU"))});
 		//}
-		channel.sendMessageToTheChat("I'm back, bitches 4Head");
+		if(channel.name == "The Chat" || channel.name == "general")
+			channel.sendMessage("Back, bitches 4Head");
 	});
 	console.log("Bot Running Fully");
 });
