@@ -40,7 +40,7 @@ mybot.on("ready",() =>{
 			var counter = 0;
 			process.argv.forEach(function (val, index, array) {
 				if (index > 1){
-					argvs += val;
+					argvs += ' ' + val;
 				}
  				//argvs += (index + ': ' + val);
 			});
