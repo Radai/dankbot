@@ -35,14 +35,10 @@ mybot.on("error",function(err){
 
 mybot.on("ready",() =>{
 	mybot.channels.forEach(function(channel){
-		//if (channel.type === 'voice'){
-		//	channel.leave();
-		//	channel.join().then(connection => {
-		//		const stream = ytdl('https://www.youtube.com/watch?v=XAWgeLF9EVQ', {filter : 'audioonly'});
-		//		const dispatcher = connection.playStream(stream, streamOptions).catch(console.log("FUUUUUU"))});
-		//}
 		if(channel.name == "The Chat" || channel.name == "general")
-			channel.sendMessage("Back, bitches 4Head");
+			if(process.argv[2] != null){
+				channel.sendMessage("Back, bitches 4Head \n Git Commit: " + process.argv[2]);	
+			}
 	});
 	console.log("Bot Running Fully");
 });
