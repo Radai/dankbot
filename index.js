@@ -39,7 +39,10 @@ mybot.on("ready",() =>{
 			var argvs = "";
 			var counter = 0;
 			process.argv.forEach(function (val, index, array) {
- 				argvs += (index + ': ' + val);
+				if (index > 1){
+					argvs += val;
+				}
+ 				//argvs += (index + ': ' + val);
 			});
 			channel.sendMessage("Back, bitches 4Head \n Commit Message: " + argvs);		
 		}
