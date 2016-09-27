@@ -35,13 +35,14 @@ mybot.on("error",function(err){
 
 mybot.on("ready",() =>{
 	mybot.channels.forEach(function(channel){
-		if(channel.name == "The Chat" || channel.name == "general")
+		if(channel.name == "The Chat" || channel.name == "general"){
 			var argvs = "";
 			var counter = 0;
 			process.argv.foreach(function(arg){
 				argvs += counter + ": " + arg;
 			});
-			channel.sendMessage("Back, bitches 4Head \n Commit Message: " + argvs);	
+			channel.sendMessage("Back, bitches 4Head \n Commit Message: " + argvs);		
+		}
 	});
 	console.log("Bot Running Fully");
 });
