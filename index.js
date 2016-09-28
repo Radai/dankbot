@@ -19,7 +19,8 @@ var commands = [
 					[/doritoB/i,processDoritoBag],
 					[/hey.*fagit/i,processAaron],
 					[/#wc/i,processWaterCloset],
-					[/ogrebomb/i,processOgreBomb]
+					[/ogrebomb/i,processOgreBomb],
+					[/crashPLZ/,processForceCrash],
 			   ];
 const ytdl = require('ytdl-core');
 const streamOptions = { seek: 0, volume: 1 };
@@ -227,6 +228,9 @@ function processOgreBomb(regex, commandString, message){
 	//							"OgreZ:pulse OgreZ:spin3 OgreZ:spin2 OgreZ:spin2 OgreZ:shake2 OgreZ:2spin OgreZ:2spin OgreZ:3spin OgreZ:pulse \n"+
 	//							"OgreZ:pulse OgreZ:spin3 OgreZ:spin3 OgreZ:spin3 OgreZ:shake OgreZ:3spin OgreZ:3spin OgreZ:3spin OgreZ:pulse\n"+
 	//							"OgreZ:pulse OgreZ:pulse OgreZ:pulse OgreZ:pulse OgreZ:pulse OgreZ:pulse OgreZ:pulse OgreZ:pulse OgreZ:pulse");
+}
+function processForceCrash(regex, commandString, message){
+	message.channel.sendMessage("Yes Sir, Immediately Sir.").then(message => process.exit(420));
 }
 
 function processParrotBomb(regex, commandString, message){
