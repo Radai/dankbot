@@ -71,32 +71,24 @@ var job= schedule.scheduleJob(new Date().setHours(12,30,1), function(){
 	});
 });
 
-var anotherJob = schedule.scheduleJob(new Date().setHours(12,15,0),function(){ sendMessageToTheChat("15 Minutes, not that anybody's counting lol. :tired_face:"); });
+var anotherJob = schedule.scheduleJob({hour:12,minute:15,second:0,dayOfWeek:[1,2,3,4,5]}, function(){ sendMessageToTheChat("15 Minutes, not that anybody's counting lol. :tired_face:"); });
 
-var aFinalJob = schedule.scheduleJob(new Date().setHours(12,28,17),function(){ sendMessageToTheChat("1 minute, 33 seconds. Can time pass any slower? T_T"); });
+var aFinalJob = schedule.scheduleJob({hour:12,minute:28,second:17,dayOfWeek:[1,2,3,4,5]},function(){ sendMessageToTheChat("1 minute, 33 seconds. Can time pass any slower? T_T"); });
 
-var aReallyFinalJob = schedule.scheduleJob(new Date().setHours(12,29,30),function(){ sendMessageToTheChat("30 Second hype? Fingers at the ready."); });	
+var aReallyFinalJob = schedule.scheduleJob({hour:12,minute:29,second:30,dayOfWeek:[1,2,3,4,5]},function(){ sendMessageToTheChat("30 Second hype? Fingers at the ready."); });	
 
-var cdOne = schedule.scheduleJob(new Date().setHours(12,29,50),function(){ sendMessageToTheChat("T - 10 Seconds"); });
+var cdOne = schedule.scheduleJob({hour:12,minute:29,second:50,dayOfWeek:[1,2,3,4,5]},function(){ sendMessageToTheChat("T - 10 Seconds"); });
 
-var cdOne = schedule.scheduleJob(new Date().setHours(12,29,55),function(){ sendMessageToTheChat("T - 5 Seconds"); });
+var cdOne = schedule.scheduleJob({hour:12,minute:29,second:55,dayOfWeek:[1,2,3,4,5]},function(){ sendMessageToTheChat("T - 5 Seconds"); });
 
-var cdTwo = schedule.scheduleJob(new Date().setHours(12,29,56),function(){ sendMessageToTheChat("T - 4 Seconds"); });
+var cdTwo = schedule.scheduleJob({hour:12,minute:29,second:56,dayOfWeek:[1,2,3,4,5]},function(){ sendMessageToTheChat("T - 4 Seconds"); });
 
-var cdThree = schedule.scheduleJob(new Date().setHours(12,29,57),function(){ sendMessageToTheChat("T - 3 Seconds"); });
+var cdThree = schedule.scheduleJob({hour:12,minute:29,second:57,dayOfWeek:[1,2,3,4,5]},function(){ sendMessageToTheChat("T - 3 Seconds"); });
 
-var cdFour = schedule.scheduleJob(new Date().setHours(12,29,58),function(){ sendMessageToTheChat("T - 2 Seconds"); });
+var cdFour = schedule.scheduleJob({hour:12,minute:29,second:58,dayOfWeek:[1,2,3,4,5]},function(){ sendMessageToTheChat("T - 2 Seconds"); });
 
-var cdFive = schedule.scheduleJob(new Date().setHours(12,29,59),function(){ sendMessageToTheChat("T - 1 Second"); });
+var cdFive = schedule.scheduleJob({hour:12,minute:29,second:59,dayOfWeek:[1,2,3,4,5]},function(){ sendMessageToTheChat("T - 1 Second"); });
 
-var testSchedule = schedule.scheduleJob(new Date().setHours(2,50,0),function(){ 
-	sendMessageToTheChat("Testing 4Head");
-	var newDate = new Date();
-	newDate.setMinutes(newDate.getMinutes() + 1);
-	schedule.scheduleJob(newDate,function(){
-		sendMessageToTheChat("EndingTest 4Head");
-	});
-});
 function login(){
 	getLunchTime();
 	mybot.login("MjE1MTM4MjE0MjYyODY1OTIx.CpTKmw.1OwPygwhbXL8OA9lj7q92pjqu3A");
