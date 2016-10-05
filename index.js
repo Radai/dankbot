@@ -21,6 +21,7 @@ var commands = [
 					[/#wc/i,processWaterCloset],
 					[/ogrebomb/i,processOgreBomb],
 					[/crashPLZ/,processForceCrash],
+					[/\/sob/i,processSob],
 			   ];
 const ytdl = require('ytdl-core');
 const streamOptions = { seek: 0, volume: 1 };
@@ -231,6 +232,11 @@ function processOgreBomb(regex, commandString, message){
 }
 function processForceCrash(regex, commandString, message){
 	message.channel.sendMessage("Yes Sir, Immediately Sir.").then(message => process.exit(420));
+}
+
+function processSob(regex, commandString, message){
+	message.delete().then(msg => message.channel.sendMessage("Oh great, you made " + message.author + " cry. BibleThump You're basically satan :downfrance:") );
+	
 }
 
 function processParrotBomb(regex, commandString, message){
