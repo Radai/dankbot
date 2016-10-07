@@ -22,6 +22,7 @@ var commands = [
 					[/ogrebomb/i,processOgreBomb],
 					[/crashPLZ/,processForceCrash],
 					[/\/sob/i,processSob],
+					[/a+n+t+i+/i,processAchuuu],
 			   ];
 const ytdl = require('ytdl-core');
 const streamOptions = { seek: 0, volume: 1 };
@@ -235,8 +236,21 @@ function processForceCrash(regex, commandString, message){
 }
 
 function processSob(regex, commandString, message){
-	message.delete().then(msg => message.channel.sendMessage("Oh great, you made " + message.author + " cry. BibleThump You're basically satan :downfrance:") );
+	message.delete().then(msg => message.channel.sendMessage("Oh great, you made " + message.author + " cry. BibleThump You're basically satan :downfrance: ") );
 	
+}
+
+function processAchuuu(regex, commandString, message){
+	var emotes = ["Chuuu:1spin","Chuuu:2spin","Chuuu:3spin","Chuuu:spin","Chuuu:spin2","Chuuu:spin3"];
+	var reply = "";
+	for(var i = 0; i < 4; i++){
+		for(var j = 0; j < 10; j++){
+			var emote = Math.floor((Math.random() * 6));
+			reply += emote + " ";
+		}
+		reply += "\n"
+	}
+	message.channel.sendMessage(reply);
 }
 
 function processParrotBomb(regex, commandString, message){
