@@ -245,7 +245,7 @@ function processAchuuu(regex, commandString, message){
 	var reply = "";
 	for(var i = 0; i < 4; i++){
 		for(var j = 0; j < 10; j++){
-			var emote = Math.floor((Math.random() * 6));
+			var emote = emotes[Math.floor((Math.random() * 6))];
 			reply += emote + " ";
 		}
 		reply += "\n"
