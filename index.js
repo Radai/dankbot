@@ -48,7 +48,7 @@ mybot.on("ready",() =>{
  				//argvs += (index + ': ' + val);
 			});
 			channel.sendMessage("Back, bitches 4Head \n Commit Message: " + argvs);		
-			channel.sendMessage("Testeroni");
+			channel.sendMessage("Testification");
 		}
 	});
 	console.log("Bot Running Fully");
