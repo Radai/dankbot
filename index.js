@@ -47,8 +47,8 @@ mybot.on("ready",() =>{
 				}
  				//argvs += (index + ': ' + val);
 			});
-			channel.sendMessage("Back, bitches 4Head \n Commit Message: " + argvs);		
 			channel.sendMessage("Testification");
+			channel.sendMessage("Back, bitches 4Head \n Commit Message: " + argvs);		
 		}
 	});
 	console.log("Bot Running Fully");
