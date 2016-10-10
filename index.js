@@ -22,8 +22,8 @@ var commands = [
 					[/ogrebomb/i,processOgreBomb],
 					[/crashPLZ/,processForceCrash],
 					[/\/sob/i,processSob],
-					[/A+N+T+I/,processAchuuu],
-			   ];
+					[/A+N+T+I+\b/,processAchuuu],
+			   ]; 
 const ytdl = require('ytdl-core');
 const streamOptions = { seek: 0, volume: 1 };
 
