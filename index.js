@@ -1,10 +1,10 @@
 var Discord = require("discord.js");
- 
+var aaronID = "215091619328819200";
+var brettID = "180751833587908608";
 var mybot = new Discord.Client();
 var schedule = require("node-schedule");
 var giphy = require("giphy-api")();
 var fs = require("fs");
-const music = require("discord.js-music");
 var commands = [
 					[/giphy (.*)/i,processGiphy],	
 					[/\/vote /,processVote],
@@ -24,9 +24,6 @@ var commands = [
 					[/\/sob/i,processSob],
 					[/A+N+T+I+\b/,processAchuuu],
 			   ]; 
-const ytdl = require('ytdl-core');
-const streamOptions = { seek: 0, volume: 1 };
-
 mybot.on("disconnected", () => {
 	//alert the console
 	console.log("Disconnected Q_Q");
@@ -34,6 +31,15 @@ mybot.on("disconnected", () => {
 
 mybot.on("error",function(err){
 	console.log(err);
+});
+mybot.on("presenceUpdate",function(k){
+	if(k.guild.presences.has(aaronID)){
+		if(k.guild.presences.get(aaronID).status == "online"){
+			sendMessageToTheChat("@everyone make our fagit feel welcome :> " + k.guild.members.get(aaronID));
+		}
+	}
+
+	console.log("IT HAPPENED");
 });
 
 mybot.on("ready",() =>{
@@ -65,33 +71,8 @@ mybot.on("message", function(message) {
 });
 
 login();
-music(mybot); //She's not quite ready yet famalam
 
-var job= schedule.scheduleJob(new Date().setHours(12,30,1), function(){
-	mybot.channels.forEach(function(channel){
-		if(channel.name == "The Chat" || channel.name == "general"){
-			channel.sendTTSMessage("WINDOWS + L AND GTFO");
-		}
-	});
-});
-
-var anotherJob = schedule.scheduleJob({hour:12,minute:15,second:0,dayOfWeek:[1,2,3,4,5]}, function(){ sendMessageToTheChat("15 Minutes, not that anybody's counting lol. :tired_face:"); });
-
-var aFinalJob = schedule.scheduleJob({hour:12,minute:28,second:17,dayOfWeek:[1,2,3,4,5]},function(){ sendMessageToTheChat("1 minute, 33 seconds. Can time pass any slower? T_T"); });
-
-var aReallyFinalJob = schedule.scheduleJob({hour:12,minute:29,second:30,dayOfWeek:[1,2,3,4,5]},function(){ sendMessageToTheChat("30 Second hype? Fingers at the ready."); });	
-
-var cdOne = schedule.scheduleJob({hour:12,minute:29,second:50,dayOfWeek:[1,2,3,4,5]},function(){ sendMessageToTheChat("T - 10 Seconds"); });
-
-var cdOne = schedule.scheduleJob({hour:12,minute:29,second:55,dayOfWeek:[1,2,3,4,5]},function(){ sendMessageToTheChat("T - 5 Seconds"); });
-
-var cdTwo = schedule.scheduleJob({hour:12,minute:29,second:56,dayOfWeek:[1,2,3,4,5]},function(){ sendMessageToTheChat("T - 4 Seconds"); });
-
-var cdThree = schedule.scheduleJob({hour:12,minute:29,second:57,dayOfWeek:[1,2,3,4,5]},function(){ sendMessageToTheChat("T - 3 Seconds"); });
-
-var cdFour = schedule.scheduleJob({hour:12,minute:29,second:58,dayOfWeek:[1,2,3,4,5]},function(){ sendMessageToTheChat("T - 2 Seconds"); });
-
-var cdFive = schedule.scheduleJob({hour:12,minute:29,second:59,dayOfWeek:[1,2,3,4,5]},function(){ sendMessageToTheChat("T - 1 Second"); });
+var job= schedule.scheduleJob(new Date().setHours(12,30,1), function(){ sendMessageToTheChat("WINDOWS + L AND GTFO"); });
 
 function login(){
 	getLunchTime();
@@ -240,7 +221,9 @@ function processSob(regex, commandString, message){
 	message.delete().then(msg => message.channel.sendMessage("Oh great, you made " + message.author + " cry. BibleThump You're basically satan :downfrance: ") );
 	
 }
-
+function processSong(regex, commandString, message){
+	
+}
 function processAchuuu(regex, commandString, message){
 	var emotes = ["Chuuu:1spin","Chuuu:2spin","Chuuu:3spin","Chuuu:spin","Chuuu:spin2","Chuuu:spin3"];
 	var reply = "";

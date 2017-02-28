@@ -1,0 +1,9 @@
+{
+	"dependencies": {
+		"node-opus":"0.2.4",
+		"discord.js":"11.0.0",
+		"node-schedule":"1.2.0",
+		"giphy-api":"1.2.3",
+		"discord.js-music":"1.0.3"
+	}
+}
