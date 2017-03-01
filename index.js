@@ -32,16 +32,23 @@ mybot.on("disconnected", () => {
 mybot.on("error",function(err){
 	console.log(err);
 });
+var lastLogin = new Date();
 mybot.on("presenceUpdate",function(k){
-	if(k.guild.presences.has(aaronID)){
-		if(k.guild.presences.get(aaronID).status == "online"){
-			sendMessageToTheChat("@everyone make our fagit feel welcome :> " + k.guild.members.get(aaronID));
+			console.log(k.user);
+	if(k.user.ID == brettID){
+		if(k.guild.presences.get(brettID).status == "online"){
+			var today = new Date();
+			var diffMs = (lastLogin - today); // milliseconds between now & Christmas
+			var diffDays = Math.floor(diffMs / 86400000); // days
+			var diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+			var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+			console.log(diffMs + " " + diffDays + " " + diffHrs + " " + diffMins);
+			//sendMessageToTheChat("@everyone make our fagit feel welcome :> " + k.guild.members.get(brettID));
 		}
 	}
 
 	console.log("IT HAPPENED");
 });
-
 mybot.on("ready",() =>{
 	mybot.channels.forEach(function(channel){
 		if(channel.name == "The Chat" || channel.name == "bottesting"){
