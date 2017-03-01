@@ -34,8 +34,8 @@ mybot.on("error",function(err){
 });
 var lastLogin = new Date();
 mybot.on("presenceUpdate",function(k){
-	if(k.user.id == brettID){
-		if(k.guild.presences.get(brettID).status == "online"){
+	if(k.user.id == aaronID){
+		if(k.guild.presences.get(aaronID).status == "online"){
 			var today = new Date();
 			var diffMs = (today - lastLogin); // milliseconds between now & Christmas
 			var diffDays = Math.floor(diffMs / 86400000); // days
@@ -43,7 +43,7 @@ mybot.on("presenceUpdate",function(k){
 			var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
 			console.log(diffMs + " " + diffDays + " " + diffHrs + " " + diffMins);
 			if(diffMins > 10){
-				sendMessageToTheChat("@everyone make our fagit feel welcome :> " + k.guild.members.get(brettID));
+				sendMessageToTheChat("@everyone make our fagit feel welcome :> " + k.guild.members.get(aaronID));
 			}
 			lastLogin = new Date();
 		}
