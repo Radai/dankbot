@@ -34,16 +34,18 @@ mybot.on("error",function(err){
 });
 var lastLogin = new Date();
 mybot.on("presenceUpdate",function(k){
-			console.log(k.user);
-	if(k.user.ID == brettID){
+	if(k.user.id == brettID){
 		if(k.guild.presences.get(brettID).status == "online"){
 			var today = new Date();
-			var diffMs = (lastLogin - today); // milliseconds between now & Christmas
+			var diffMs = (today - lastLogin); // milliseconds between now & Christmas
 			var diffDays = Math.floor(diffMs / 86400000); // days
 			var diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
 			var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
 			console.log(diffMs + " " + diffDays + " " + diffHrs + " " + diffMins);
-			//sendMessageToTheChat("@everyone make our fagit feel welcome :> " + k.guild.members.get(brettID));
+			if(diffMins > 10){
+				sendMessageToTheChat("@everyone make our fagit feel welcome :> " + k.guild.members.get(brettID));
+			}
+			lastLogin = new Date();
 		}
 	}
 
