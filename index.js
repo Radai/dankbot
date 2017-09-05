@@ -2,26 +2,17 @@ var Discord = require("discord.js");
 var aaronID = "215091619328819200";
 var brettID = "180751833587908608";
 var mybot = new Discord.Client();
-var schedule = require("node-schedule");
 var giphy = require("giphy-api")();
+const ytdl = require("ytdl-core");
 var fs = require("fs");
 var commands = [
-					[/giphy (.*)/i,processGiphy],	
-					[/\/vote /,processVote],
+					[/giphy (.*)/i,processGiphy],
+					[/play/,processPlay],
 					[/\d+\s*d\s*\d+/i,processDice],
-					[/dat.*boi/i, processDatBoi],
-					[/bailey/i, processBailey],
 					[/suh/i, processSuh],
-					[/🍠/i, processPotato],
-					[/lunch.*time/i, processLunchTime],
 					[/\(╯°□°\）╯︵ ┻━┻/,processTableFlip],
 					[/parrotBomb/i,processParrotBomb],
-					[/doritoB/i,processDoritoBag],
-					[/hey.*fagit/i,processAaron],
-					[/#wc/i,processWaterCloset],
-					[/ogrebomb/i,processOgreBomb],
 					[/crashPLZ/,processForceCrash],
-					[/\/sob/i,processSob],
 					[/A+N+T+I+\b/,processAchuuu],
 			   ]; 
 mybot.on("disconnected", () => {
@@ -34,21 +25,6 @@ mybot.on("error",function(err){
 });
 var lastLogin = new Date();
 mybot.on("presenceUpdate",function(k){
-	if(k.user.id == aaronID){
-		if(k.guild.presences.get(aaronID).status == "online"){
-			var today = new Date();
-			var diffMs = (today - lastLogin); // milliseconds between now & Christmas
-			var diffDays = Math.floor(diffMs / 86400000); // days
-			var diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
-			var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
-			console.log(diffMs + " " + diffDays + " " + diffHrs + " " + diffMins);
-			if(diffMins > 10){
-				sendMessageToTheChat("@everyone make our fagit feel welcome :> " + k.guild.members.get(aaronID));
-			}
-			lastLogin = new Date();
-		}
-	}
-
 	console.log("IT HAPPENED");
 });
 mybot.on("ready",() =>{
@@ -81,32 +57,8 @@ mybot.on("message", function(message) {
 
 login();
 
-var job= schedule.scheduleJob(new Date().setHours(12,30,1), function(){ sendMessageToTheChat("WINDOWS + L AND GTFO"); });
-
 function login(){
-	getLunchTime();
-	mybot.login("MjE1MTM4MjE0MjYyODY1OTIx.CpTKmw.1OwPygwhbXL8OA9lj7q92pjqu3A");
-}
-
-function getLunchTime(){
-	var now = new Date();
-	var curHour = now.getHours();
-	var curMinute = now.getMinutes();
-	var curSeconds = now.getSeconds();
-	var lunchStart = new Date();
-	lunchStart.setHours(12);
-	lunchStart.setMinutes(30);
-	lunchStart.setSeconds(0);
-	var lunchEnd = new Date(lunchStart.toString());
-	lunchEnd.setHours(lunchEnd.getHours() + 1);
-	//console.log(lunchStart.getHours() + ":" + lunchStart.getMinutes() + ":" + lunchStart.getSeconds());
-	if(now < lunchStart){
-		return -1;
-	}else if(now > lunchEnd){
-		return 1;
-	}else{   
-		return 0;
-	}
+	mybot.login("MzU0NjQwOTYyMjg0NDIxMTIx.DJBMuw.0DzjWNoM76RM8i0oh-y7N5cVlHw");
 }
 
 function processGiphy(regex, commandString, message){
@@ -124,34 +76,19 @@ function processGiphy(regex, commandString, message){
 		}
 	});
 }
+function processPlay(regex, commandString, message){
+	// Play streams using ytdl-core
+	const streamOptions = { seek: 0, volume: 1 };
+	console.log(mybot.manager);
+	const broadcast = mybot.manager.client.createVoiceBroadcast();
 
-var cKickee = null;
-var votesTowardsKick = [];
-function processVote(regex, commandString, message){
-	if(/kick /i.test(commandString)){
-		if(cKickee == null){
-			if(message.mentions[0] != null){
-				if(message.mentions[1] == null){
-					cKickee = message.mentions[0];
-				}else{
-					console.log('one person at a time please');
-				}
-			}else{
-				console.log('you have to mention someone');
-			}
-		}else{
-			console.log('someone is already getting kicked.');
-		}
-	}
-	if(/\/vote yes/i.test(message.content) || /\/vote no/i.test(message.content)){
-		if(cKickee != null){
-
-		}else{
-			console.log('no one is getting kicked currently');
-		}
-	}
+	voiceChannel.join()
+	  .then(connection => {
+    	const stream = ytdl('https://www.youtube.com/watch?v=XAWgeLF9EVQ', { filter : 'audioonly' });
+	    broadcast.playStream(stream);
+	    const dispatcher = connection.playBroadcast(broadcast);
+  	}).catch(console.error);
 }
-
 function processDice(regex, commandString, message){
 	var result = regex.exec(commandString);
 	var numDice = /\d+/.exec(result);
@@ -163,14 +100,6 @@ function processDice(regex, commandString, message){
 	message.reply(reply);
 }
 
-function processDatBoi(regex, commandString, message){
-    message.channel.sendTTSMessage("oh shit waddap");
-}
-
-function processBailey(regex, commandString, message){
-	message.channel.sendTTSMessage("I'm Old Greg");
-}
-
 function processSuh(regex, commandString, message){
 	var emojis = [":ok_hand:", ":sunglasses:",":v:"];
 	var randEmoji = Math.floor(Math.random() * emojis.length );
@@ -179,60 +108,14 @@ function processSuh(regex, commandString, message){
 	message.reply(messages[randMessage]);
 }
 
-function processPotato(regex, commandString, message){
-	message.reply("OH GOD PLeASE NO #triggered");
-}
-
-function processLunchTime(regex, commandString, message){
-	var lunchtimeInt = getLunchTime();
-	var replyString = "";
-	if(lunchtimeInt == -1){
-		replyString = "Unfortunately it's not lunch time yet...";
-	}else if(lunchtimeInt == 0){
-		replyString = "Get the fuck away from your computer and get food.";
-	}else{
-		replyString = "You already had lunch, you cheeky bugger";
-	}
-	message.reply(replyString);
-}
-
 function processTableFlip(regex,commandString,message){
 	message.channel.sendMessage('┬─┬﻿ ノ( ゜-゜ノ)');
 }
 
-function processOgreBomb(regex, commandString, message){
-	var msg = "";
-	var options = ["OgreZ:shake3 ","OgreZ:shake2 ", "OgreZ:spin ", "OgreZ:1spin ", "OgreZ:pulse ", "OgreZ:3spin ", "OgreZ:spin3 ", "OgreZ:spin2 ", "OgreZ:2spin ", "OgreZ:flap "];
-
-	for(var i = 0;i<9;i++){
-		for(var j = 0; j < 9; j ++ ){
-			var randomChoice = Math.floor((Math.random() * options.length));
-			msg += options[randomChoice];
-		}
-		msg += "\n"
-	}
-	message.channel.sendMessage(msg);
-	//message.channel.sendMessage("OgreZ:pulse OgreZ:pulse OgreZ:pulse OgreZ:pulse OgreZ:pulse OgreZ:pulse OgreZ:pulse OgreZ:pulse OgreZ:pulse \n"+
-	//							"OgreZ:pulse OgreZ:spin3 OgreZ:spin3 OgreZ:spin3 OgreZ:shake OgreZ:3spin OgreZ:3spin OgreZ:3spin OgreZ:pulse \n"+
-	//							"OgreZ:pulse OgreZ:spin3 OgreZ:spin2 OgreZ:spin2 OgreZ:shake2 OgreZ:2spin OgreZ:2spin OgreZ:3spin OgreZ:pulse \n"+
-	//							"OgreZ:pulse OgreZ:2spin OgreZ:spin OgreZ:shake3 OgreZ:shake3 OgreZ:shake3 OgreZ:1spin OgreZ:spin2 OgreZ:pulse \n"+
-	//							"OgreZ:pulse OgreZ:2spin OgreZ:spin OgreZ:shake3 OgreZ:pulse OgreZ:shake3 OgreZ:1spin OgreZ:spin2 OgreZ:pulse \n"+
-	//							"OgreZ:pulse OgreZ:2spin OgreZ:spin OgreZ:shake3 OgreZ:shake3 OgreZ:shake3 OgreZ:1spin OgreZ:spin2 OgreZ:pulse \n"+
-	//							"OgreZ:pulse OgreZ:spin3 OgreZ:spin2 OgreZ:spin2 OgreZ:shake2 OgreZ:2spin OgreZ:2spin OgreZ:3spin OgreZ:pulse \n"+
-	//							"OgreZ:pulse OgreZ:spin3 OgreZ:spin3 OgreZ:spin3 OgreZ:shake OgreZ:3spin OgreZ:3spin OgreZ:3spin OgreZ:pulse\n"+
-	//							"OgreZ:pulse OgreZ:pulse OgreZ:pulse OgreZ:pulse OgreZ:pulse OgreZ:pulse OgreZ:pulse OgreZ:pulse OgreZ:pulse");
-}
 function processForceCrash(regex, commandString, message){
 	message.channel.sendMessage("Yes Sir, Immediately Sir.").then(message => process.exit(420));
 }
 
-function processSob(regex, commandString, message){
-	message.delete().then(msg => message.channel.sendMessage("Oh great, you made " + message.author + " cry. BibleThump You're basically satan :downfrance: ") );
-	
-}
-function processSong(regex, commandString, message){
-	
-}
 function processAchuuu(regex, commandString, message){
 	var emotes = ["Chuuu:1spin","Chuuu:2spin","Chuuu:3spin","Chuuu:spin","Chuuu:spin2","Chuuu:spin3"];
 	var reply = "";
@@ -286,38 +169,9 @@ function processParrotBomb(regex, commandString, message){
 	message.channel.sendMessage(ret);
 }
 
-function processDoritoBag(regex, commandString, message){
-	message.delete(message);
-	message.channel.sendMessage('▼ ◄ ▲ ► ▼ ▲ ► ▼ ◄ ▲ ▼ ▼ ◄▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ \n Sorry, ' + message.author + ' dropped their bag of Doritos® brand chips\n ▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ▼ ◄ ▲ ► ▼ ◄▼ ▼ ',function(error,message){
-		console.log(error);
-	});
-}
-
-function processAaron(regex, commandString, message){
-	message.channel.sendMessage('I\'m not Aaron EleGiggle');
-}
-
-function processWaterCloset(regex, commandString, message){
-	var handsCleaned = false;
-	var cleanHands = [/clean/i,/yes/i,/true/i,/wow/i];
-	for(var i = 0; i < cleanHands.length;i++){
-		if (cleanHands[i].test(commandString)){
-			i=cleanHands.length;
-			handsCleaned = true;
-		}
-	}
-	fs.writeFile("test.txt", (new Date().toString() + " : " + handsCleaned + '\n'), function(err) {
-    if(err) {
-        return console.log(err);
-    }
-
-    console.log("The file was saved!");
-}); 
-}
-
 function sendMessageToTheChat(messageToSend){
 	mybot.channels.forEach(function(channel){
-		if(channel.name == "The Chat" || channel.name == "general"){
+		if(channel.name == "The Chat 2.0"){
 			channel.sendMessage(messageToSend);
 		}
 	});
